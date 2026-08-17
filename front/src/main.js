@@ -58,6 +58,12 @@ const pdfPreviewBox = document.getElementById('pdf-preview-box');
 const pdfIframe = document.getElementById('pdf-iframe');
 const closePdfPreviewBtn = document.getElementById('close-pdf-preview');
 
+// Helper: Get Clean Cover Image URL
+function getCoverUrl(path) {
+  if (!path) return '/cover_images/placeholder/default_placeholder.svg';
+  return path.startsWith('/') ? path : '/' + path;
+}
+
 // Helper: Render SVG Star Rating
 function renderStarRating(rating = 5) {
   const max = 5;
@@ -198,7 +204,7 @@ function renderGridCovers(books) {
     card.className = 'book-card';
     card.addEventListener('click', () => openBookModal(book));
 
-    const coverSrc = book.cover_image || '/cover_images/placeholders/default_placeholder.svg';
+    const coverSrc = getCoverUrl(book.cover_image);
 
     const statusLabel = {
       'completed': 'Finished',
@@ -229,7 +235,7 @@ function renderGridCovers(books) {
 function openBookModal(book) {
   selectedBook = book;
   
-  modalCoverImg.src = book.cover_image || '/cover_images/placeholders/default_placeholder.svg';
+  modalCoverImg.src = getCoverUrl(book.cover_image);
   modalGenre.textContent = book.genre || 'General Literature';
   modalTitle.textContent = book.title;
   modalAuthor.textContent = `by ${book.author}`;
@@ -426,7 +432,7 @@ function setupEventListeners() {
       rating: 5,
       favorite: true,
       spine_color: getRandomSpineColor(),
-      cover_image: '/cover_images/placeholders/default_placeholder.svg',
+      cover_image: '/cover_images/placeholder/default_placeholder.svg',
       file_path: formattedFilePath,
       file_size_mb: formattedFilePath ? 2.5 : null,
       description: document.getElementById('form-description').value,
@@ -443,7 +449,7 @@ function setupEventListeners() {
 }
 
 function getRandomSpineColor() {
-  const colors = ['#2c3e50', '#8b4513', '#2e8b57', '#4682b4', '#d2691e', '#8a2be2', '#b8860b', '#1e90ff', '#522566'];
+  const colors = ['#415e7aff', '#8b4513', '#2e8b57', '#4682b4', '#d2691e', '#8a2be2', '#b8860b', '#1e90ff', '#522566'];
   return colors[Math.floor(Math.random() * colors.length)];
 }
 
@@ -459,7 +465,7 @@ function getFallbackData() {
       status: "currently-reading",
       rating: 5,
       favorite: true,
-      spine_color: "#1e3d59",
+      spine_color: "#ce5b5bff",
       cover_image: "/cover_images/thumbnails/the_cozy_reader_handbook_cover.png",
       file_path: "datalake/raw/the_cozy_reader_handbook.pdf",
       file_size_mb: 0.8,

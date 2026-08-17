@@ -14,8 +14,8 @@
   --text-main: #f5ebe0;
   --text-muted: #d4a373;
   --accent-gold: #e6b800;
-  --accent-warm: #d97706;
-  --accent-glow: rgba(230, 184, 0, 0.25);
+  --accent-warm: #b66a13;
+  --accent-glow: rgba(225, 188, 44, 0.25);
 
   --font-logo: 'Jacquarda Bastarda 9', 'Cinzel', serif;
   --font-book-title: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
@@ -190,7 +190,7 @@ body {
   background: var(--bg-card);
   backdrop-filter: blur(12px);
   border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(120, 43, 43, 0.08);
   box-shadow: var(--shadow-cozy);
   margin-bottom: 24px;
 }
