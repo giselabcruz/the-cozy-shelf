@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="candlelight">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Cozy Shelf | Digital Nook</title>
+  <meta name="description" content="A warm, cozy interactive digital bookshelf and reading nook for your favorite books." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./src/styles.css" />
+</head>
+<body>
+  <!-- Ambient Floating Particles Background -->
+  <div class="ambient-particles" id="particles"></div>
+
+  <!-- Warm Lamp Light Effect -->
+  <div class="warm-lamp-glow"></div>
+
+  <div class="app-container">
+    <!-- Cozy Header -->
+    <header class="cozy-header">
+      <div class="header-branding">
+        <div class="logo-icon">📖</div>
+        <div>
+          <h1 class="logo-title">The Cozy Shelf</h1>
+          <p class="logo-subtitle">My Personal Digital Reading Nook</p>
+        </div>
+      </div>
+
+      <!-- Quick Stats Strip -->
+      <div class="header-stats" id="header-stats">
+        <div class="stat-pill">
+          <span class="stat-icon">📚</span>
+          <span class="stat-val" id="stat-total-books">0</span>
+          <span class="stat-lbl">Books</span>
+        </div>
+        <div class="stat-pill">
+          <span class="stat-icon">✨</span>
+          <span class="stat-val" id="stat-pages-read">0</span>
+          <span class="stat-lbl">Pages Read</span>
+        </div>
+        <div class="stat-pill">
+          <span class="stat-icon">📄</span>
+          <span class="stat-val" id="stat-raw-pdfs">0</span>
+          <span class="stat-lbl">Raw PDFs</span>
+        </div>
+      </div>
+
+      <!-- Controls & Theme Toggles -->
+      <div class="header-actions">
+        <button id="btn-ambient-audio" class="cozy-btn audio-btn" title="Toggle Fireplace Sound">
+          <span class="btn-icon">🔥</span> <span id="audio-label">Sound On</span>
+        </button>
+
+        <div class="theme-picker">
+          <button class="theme-dot candlelight active" data-set-theme="candlelight" title="Candlelight Nook"></button>
+          <button class="theme-dot midnight" data-set-theme="midnight" title="Midnight Forest"></button>
+          <button class="theme-dot parlor" data-set-theme="parlor" title="Daylight Parlor"></button>
+        </div>
+
+        <button id="btn-add-book" class="cozy-btn primary-btn">
+          <span class="btn-icon">+</span> Add Book / PDF
+        </button>
+      </div>
+    </header>
+
+    <!-- Navigation & Filter Bar -->
+    <nav class="cozy-nav">
+      <div class="nav-tabs" id="status-tabs">
+        <button class="nav-tab active" data-status="all">All Books</button>
+        <button class="nav-tab" data-status="currently-reading">Reading Now 📖</button>
+        <button class="nav-tab" data-status="completed">Finished ✨</button>
+        <button class="nav-tab" data-status="want-to-read">Wishlist 🌙</button>
+        <button class="nav-tab" data-status="favorite">Favorites ❤️</button>
+      </div>
+
+      <div class="nav-search-sort">
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="search-input" placeholder="Search by title, author, PDF tag..." />
+        </div>
+
+        <div class="view-toggle">
+          <button class="view-btn active" id="view-3d" title="3D Bookshelf View">🪵 Shelf</button>
+          <button class="view-btn" id="view-grid" title="Cover Grid View">🖼️ Covers</button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <!-- 3D Wooden Bookshelf Container -->
+      <section id="shelf-view" class="shelf-container">
+        <div class="wooden-bookcase" id="wooden-bookcase"></div>
+      </section>
+
+      <!-- Grid Cards View -->
+      <section id="grid-view" class="grid-container hidden">
+        <div class="covers-grid" id="covers-grid"></div>
+      </section>
+    </main>
+
+    <!-- Footer Quote & Data Lake Info -->
+    <footer class="cozy-footer">
+      <p class="footer-quote" id="footer-quote">
+        "A book is a dream that you hold in your hand." — <em>Neil Gaiman</em>
+      </p>
+      <div class="datalake-badge">
+        <span class="pulse-dot"></span> Ingesting raw PDFs from <code>datalake/raw/</code>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Book Detail Modal (Open Book & PDF Viewer Experience) -->
+  <div class="modal-backdrop hidden" id="book-modal">
+    <div class="book-modal-card">
+      <button class="close-modal-btn" id="close-modal">&times;</button>
+      
+      <div class="open-book-layout">
+        <!-- Left Page: Extracted Cover & Download / Preview Controls -->
+        <div class="book-left-page">
+          <div class="modal-cover-frame">
+            <img id="modal-cover-img" src="" alt="Book Cover" />
+          </div>
+
+          <!-- PDF Download & Preview Action Bar -->
+          <div class="file-action-bar" id="modal-file-actions">
+            <a id="modal-download-link" href="#" download class="cozy-btn download-btn">
+              📥 Download PDF (<span id="modal-file-size">MB</span>)
+            </a>
+            <button id="modal-preview-btn" class="cozy-btn preview-btn">
+              👁️ Preview Document
+            </button>
+          </div>
+
+          <div class="modal-quick-actions">
+            <button class="favorite-toggle-btn" id="modal-fav-btn">❤️ Favorite</button>
+            <div class="status-dropdown-wrapper">
+              <select id="modal-status-select" class="cozy-select">
+                <option value="currently-reading">📖 Currently Reading</option>
+                <option value="completed">✨ Completed</option>
+                <option value="want-to-read">🌙 Want to Read</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Page: Book Details, PDF Viewer & Notes -->
+        <div class="book-right-page">
+          <div class="modal-genre-badge" id="modal-genre">Genre</div>
+          <h2 class="modal-book-title" id="modal-title">Book Title</h2>
+          <p class="modal-book-author" id="modal-author">by Author Name</p>
+
+          <div class="modal-rating" id="modal-rating">⭐⭐⭐⭐⭐</div>
+
+          <p class="modal-description" id="modal-description">Description text...</p>
+
+          <!-- Interactive PDF Embedded Viewer -->
+          <div class="pdf-preview-container hidden" id="pdf-preview-box">
+            <div class="pdf-preview-header">
+              <span>📄 Document Viewer</span>
+              <button class="close-preview-btn" id="close-pdf-preview">&times; Close Preview</button>
+            </div>
+            <iframe id="pdf-iframe" src="" class="pdf-iframe-frame"></iframe>
+          </div>
+
+          <div class="quote-box" id="modal-quote-box">
+            <p class="quote-text" id="modal-quote">"Quote text"</p>
+          </div>
+
+          <!-- Reading Progress Tracker -->
+          <div class="progress-section">
+            <div class="progress-label-row">
+              <span>Reading Progress</span>
+              <span id="modal-progress-text">0 / 0 pages (0%)</span>
+            </div>
+            <div class="progress-bar-track">
+              <div class="progress-bar-fill" id="modal-progress-fill"></div>
+            </div>
+            <input type="range" id="modal-progress-slider" min="0" max="100" value="0" class="cozy-slider" />
+          </div>
+
+          <!-- Tags -->
+          <div class="modal-tags" id="modal-tags"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add New Book Modal -->
+  <div class="modal-backdrop hidden" id="add-modal">
+    <div class="cozy-modal-card">
+      <button class="close-modal-btn" id="close-add-modal">&times;</button>
+      <h2 class="modal-form-title">✨ Add Book / Upload PDF to Data Lake</h2>
+      
+      <form id="add-book-form" class="cozy-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Book Title *</label>
+            <input type="text" id="form-title" required placeholder="e.g. Data Science on AWS" />
+          </div>
+          <div class="form-group">
+            <label>Author *</label>
+            <input type="text" id="form-author" required placeholder="e.g. Chris Fregly" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Genre</label>
+            <input type="text" id="form-genre" placeholder="e.g. Tech / PDF" />
+          </div>
+          <div class="form-group">
+            <label>Status</label>
+            <select id="form-status" class="cozy-select">
+              <option value="currently-reading">📖 Currently Reading</option>
+              <option value="completed">✨ Completed</option>
+              <option value="want-to-read" selected>🌙 Want to Read</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Raw PDF File Name (in datalake/raw/)</label>
+            <input type="text" id="form-file-path" placeholder="e.g. Data_Science_on_AWS.pdf" />
+          </div>
+          <div class="form-group">
+            <label>Total Pages</label>
+            <input type="number" id="form-pages" min="1" value="250" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Favorite Quote / Key Takeaway</label>
+          <input type="text" id="form-quote" placeholder="A memorable line..." />
+        </div>
+
+        <div class="form-group">
+          <label>Description</label>
+          <textarea id="form-description" rows="3" placeholder="Brief summary of why you love this book..."></textarea>
+        </div>
+
+        <button type="submit" class="cozy-btn primary-btn full-width">Place on Shelf 🪵</button>
+      </form>
+    </div>
+  </div>
+
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>
