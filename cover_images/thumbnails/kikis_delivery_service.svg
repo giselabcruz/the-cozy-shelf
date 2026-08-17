@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#31103f"/>
+      <stop offset="100%" stop-color="#522566"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="400" height="600" fill="url(#bgGrad)" rx="12" />
+  
+  <!-- Decorative Frame -->
+  <rect x="20" y="20" width="360" height="560" fill="none" stroke="#fbc4ab" stroke-width="2" rx="8" opacity="0.6"/>
+  <rect x="26" y="26" width="348" height="548" fill="none" stroke="#fbc4ab" stroke-width="1" rx="6" stroke-dasharray="6,4" opacity="0.4"/>
+
+  <!-- Icon Illustration -->
+  <g filter="url(#shadow)">
+    
+            <!-- Broomstick & Cat Silhouette -->
+            <line x1="120" y1="260" x2="280" y2="180" stroke="#ddbea9" stroke-width="6" stroke-linecap="round"/>
+            <path d="M 120 260 L 90 280 L 100 250 Z" fill="#cb997e"/>
+            <circle cx="240" cy="180" r="14" fill="#111111"/>
+            <polygon points="232,170 236,160 242,170" fill="#111111"/>
+            <polygon points="242,170 248,160 250,170" fill="#111111"/>
+        
+  </g>
+
+  <!-- Title & Subtitle -->
+  <text x="200" y="440" font-family="'Playfair Display', Georgia, serif" font-size="24" font-weight="700" fill="#f8c8dc" text-anchor="middle">
+    Kiki's Delivery
+  </text>
+  <text x="200" y="470" font-family="'Playfair Display', Georgia, serif" font-size="18" font-style="italic" fill="#fbc4ab" text-anchor="middle">
+    Service
+  </text>
+
+  <!-- Divider Line -->
+  <line x1="140" y1="495" x2="260" y2="495" stroke="#fbc4ab" stroke-width="1.5" opacity="0.7"/>
+
+  <!-- Author -->
+  <text x="200" y="530" font-family="'Plus Jakarta Sans', sans-serif" font-size="14" letter-spacing="2" font-weight="600" fill="#f8c8dc" text-anchor="middle" text-transform="uppercase">
+    Eiko Kadono
+  </text>
+</svg>

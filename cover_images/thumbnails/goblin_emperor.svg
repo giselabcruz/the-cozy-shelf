@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2b1e3a"/>
+      <stop offset="100%" stop-color="#453257"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="400" height="600" fill="url(#bgGrad)" rx="12" />
+  
+  <!-- Decorative Frame -->
+  <rect x="20" y="20" width="360" height="560" fill="none" stroke="#ffd700" stroke-width="2" rx="8" opacity="0.6"/>
+  <rect x="26" y="26" width="348" height="548" fill="none" stroke="#ffd700" stroke-width="1" rx="6" stroke-dasharray="6,4" opacity="0.4"/>
+
+  <!-- Icon Illustration -->
+  <g filter="url(#shadow)">
+    
+            <!-- Royal Crown -->
+            <polygon points="150,240 160,180 180,210 200,160 220,210 240,180 250,240" fill="#ffd700"/>
+            <rect x="150" y="240" width="100" height="15" fill="#c9a227" rx="3"/>
+            <circle cx="200" cy="160" r="6" fill="#e0aaff"/>
+            <circle cx="160" cy="180" r="5" fill="#e0aaff"/>
+            <circle cx="240" cy="180" r="5" fill="#e0aaff"/>
+        
+  </g>
+
+  <!-- Title & Subtitle -->
+  <text x="200" y="440" font-family="'Playfair Display', Georgia, serif" font-size="24" font-weight="700" fill="#e0aaff" text-anchor="middle">
+    The Goblin Emperor
+  </text>
+  <text x="200" y="470" font-family="'Playfair Display', Georgia, serif" font-size="18" font-style="italic" fill="#ffd700" text-anchor="middle">
+    A Novel of Imperial Court & Kindness
+  </text>
+
+  <!-- Divider Line -->
+  <line x1="140" y1="495" x2="260" y2="495" stroke="#ffd700" stroke-width="1.5" opacity="0.7"/>
+
+  <!-- Author -->
+  <text x="200" y="530" font-family="'Plus Jakarta Sans', sans-serif" font-size="14" letter-spacing="2" font-weight="600" fill="#e0aaff" text-anchor="middle" text-transform="uppercase">
+    Katherine Addison
+  </text>
+</svg>
