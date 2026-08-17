@@ -10,7 +10,7 @@ Dynamic PDF / EPUB Cover Extractor & Ingestion Pipeline for The Cozy Shelf.
 
 import os
 import json
-import pymupdf  # PyMuPDF
+import pymupdf
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
