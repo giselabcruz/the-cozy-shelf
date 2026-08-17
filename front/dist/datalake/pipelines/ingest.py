@@ -1,8 +1,4 @@
 #!/usr/bin/env python3
-"""
-Data Lake Ingestion & Analytics Pipeline for The Cozy Shelf.
-"""
-
 import json
 from pathlib import Path
 from datetime import datetime
@@ -78,7 +74,7 @@ def run_pipeline():
         json.dump(stats, f, indent=2)
 
     print(f"✅ Ingested {len(valid_books)} books successfully.")
-    print(f"📊 Analytics saved to {ANALYTICS_FILE}")
+    print(f"Analytics saved to {ANALYTICS_FILE}!")
 
 if __name__ == "__main__":
     run_pipeline()

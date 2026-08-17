@@ -58,6 +58,18 @@ const pdfPreviewBox = document.getElementById('pdf-preview-box');
 const pdfIframe = document.getElementById('pdf-iframe');
 const closePdfPreviewBtn = document.getElementById('close-pdf-preview');
 
+// Helper: Render SVG Star Rating
+function renderStarRating(rating = 5) {
+  const max = 5;
+  let html = '<span class="star-rating-container">';
+  for (let i = 1; i <= max; i++) {
+    const isFilled = i <= rating;
+    html += `<svg class="star-icon ${isFilled ? 'filled' : 'empty'}" width="14" height="14" viewBox="0 0 24 24" fill="${isFilled ? 'var(--accent-gold)' : 'none'}" stroke="var(--accent-gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+  }
+  html += '</span>';
+  return html;
+}
+
 // Initialize Application
 async function initApp() {
   await loadDataLakeFeed();
@@ -155,7 +167,7 @@ function render3DBookshelf(books) {
       spine.style.backgroundColor = book.spine_color || '#3b281c';
 
       spine.innerHTML = `
-        ${book.favorite ? '<span class="spine-favorite-star">❤️</span>' : ''}
+        ${book.favorite ? '<span class="spine-favorite-star"><svg width="12" height="12" viewBox="0 0 24 24" fill="#e63946"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></span>' : ''}
         <span class="spine-title">${book.title}</span>
         <span class="spine-author">${book.author.split(' ').pop()}</span>
       `;
@@ -189,23 +201,23 @@ function renderGridCovers(books) {
     const coverSrc = book.cover_image || '/cover_images/placeholders/default_placeholder.svg';
 
     const statusLabel = {
-      'completed': 'Finished ✨',
-      'currently-reading': 'Reading 📖',
-      'want-to-read': 'Wishlist 🌙'
+      'completed': 'Finished',
+      'currently-reading': 'Reading',
+      'want-to-read': 'Wishlist'
     }[book.status] || book.status;
 
     const statusClass = `status-${book.status}`;
 
     card.innerHTML = `
       <div class="card-cover-wrapper">
-        ${book.file_path ? '<span class="raw-pdf-tag">📄 PDF FILE</span>' : ''}
+        ${book.file_path ? '<span class="raw-pdf-tag"><svg class="cozy-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> PDF FILE</span>' : ''}
         <img src="${coverSrc}" alt="${book.title}" loading="lazy" />
       </div>
       <h3 class="card-title">${book.title}</h3>
       <p class="card-author">${book.author}</p>
       <div class="card-meta">
         <span class="badge-status ${statusClass}">${statusLabel}</span>
-        <span>${'⭐'.repeat(book.rating || 0)}</span>
+        <span>${renderStarRating(book.rating || 0)}</span>
       </div>
     `;
 
@@ -221,7 +233,7 @@ function openBookModal(book) {
   modalGenre.textContent = book.genre || 'General Literature';
   modalTitle.textContent = book.title;
   modalAuthor.textContent = `by ${book.author}`;
-  modalRating.textContent = '⭐'.repeat(book.rating || 5);
+  modalRating.innerHTML = renderStarRating(book.rating || 5);
   modalDescription.textContent = book.description || 'No description provided.';
   
   // Reset PDF Viewer state
@@ -256,7 +268,9 @@ function openBookModal(book) {
 
   // Favorite toggle button
   modalFavBtn.style.background = book.favorite ? '#e63946' : '#6c757d';
-  modalFavBtn.textContent = book.favorite ? '❤️ Favorite' : '🤍 Mark Favorite';
+  modalFavBtn.innerHTML = book.favorite
+    ? '<svg class="cozy-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg> Favorite'
+    : '<svg class="cozy-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.72-8.72 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> Mark Favorite';
 
   // Status Selector
   modalStatusSelect.value = book.status;
@@ -318,7 +332,7 @@ function setupEventListeners() {
   audioBtn.addEventListener('click', () => {
     const isPlaying = cozyAudio.toggle();
     if (isPlaying) {
-      audioLabel.textContent = 'Fireplace Playing 🔥';
+      audioLabel.textContent = 'Fireplace Playing';
       audioBtn.style.borderColor = 'var(--accent-gold)';
     } else {
       audioLabel.textContent = 'Sound Off';
