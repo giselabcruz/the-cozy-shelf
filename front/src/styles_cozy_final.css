@@ -17,7 +17,9 @@
   --accent-warm: #d97706;
   --accent-glow: rgba(230, 184, 0, 0.25);
 
-  --font-title: 'Playfair Display', Georgia, serif;
+  --font-logo: 'Jacquarda Bastarda 9', 'Cinzel', serif;
+  --font-book-title: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  --font-title: 'Cinzel', 'Playfair Display', Georgia, serif;
   --font-body: 'Plus Jakarta Sans', -apple-system, sans-serif;
   --font-accent: 'Cinzel', serif;
 
@@ -213,11 +215,12 @@ body {
 }
 
 .logo-title {
-  font-family: var(--font-title);
-  font-size: 1.8rem;
+  font-family: var(--font-logo);
+  font-size: 2.1rem;
   font-weight: 700;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
   color: var(--text-main);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5), 0 0 20px var(--accent-glow);
 }
 
 .logo-subtitle {
@@ -539,12 +542,12 @@ body {
   writing-mode: vertical-rl;
   text-orientation: mixed;
   transform: rotate(180deg);
-  font-family: var(--font-title);
-  font-size: 0.85rem;
-  font-weight: 600;
+  font-family: var(--font-book-title);
+  font-size: 0.95rem;
+  font-weight: 700;
   color: #ffffff;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
-  letter-spacing: 0.5px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9);
+  letter-spacing: 0.8px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -629,10 +632,12 @@ body {
 }
 
 .card-title {
-  font-family: var(--font-title);
-  font-size: 1.05rem;
+  font-family: var(--font-book-title);
+  font-size: 1.2rem;
   font-weight: 700;
   margin-bottom: 4px;
+  line-height: 1.25;
+  color: var(--text-main);
 }
 
 .card-author {
@@ -823,11 +828,12 @@ body {
 }
 
 .modal-book-title {
-  font-family: var(--font-title);
-  font-size: 1.8rem;
+  font-family: var(--font-book-title);
+  font-size: 2.1rem;
   font-weight: 700;
   margin-bottom: 4px;
   line-height: 1.2;
+  color: #4a2c16;
 }
 
 .modal-book-author {
