@@ -1,0 +1,24 @@
+{
+  "last_updated": "2026-08-17T19:14:25.658714",
+  "total_books": 8,
+  "status_breakdown": {
+    "completed": 4,
+    "currently_reading": 2,
+    "want_to_read": 2
+  },
+  "reading_progress": {
+    "total_pages_read": 1183,
+    "total_pages_catalog": 2004,
+    "completion_rate_percent": 50.0
+  },
+  "favorites_count": 5,
+  "genre_distribution": {
+    "Magical Realism": 2,
+    "Cozy Fantasy": 1,
+    "Solarpunk": 1,
+    "Contemporary Fantasy": 1,
+    "Children's Fantasy": 1,
+    "High Fantasy": 1,
+    "Classic Fable": 1
+  }
+}
